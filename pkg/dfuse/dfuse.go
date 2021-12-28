@@ -24,7 +24,10 @@ func (d *Driver) Run() {
 }
 
 func NewNodeServer(d *Driver) *NodeServer {
-	return &NodeServer{Driver: d}
+	return &NodeServer{
+		Driver: d,
+		Mounts: make(map[string]NodeMount),
+	}
 }
 
 func NewDfuseDriver(cfg Config) *Driver {

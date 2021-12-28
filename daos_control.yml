@@ -1,0 +1,7 @@
+name: daos_server
+port: 10001
+# Currently assume the DAOS server's ip is 192.168.122.1
+hostlist: ['192.168.122.1'] 
+transport_config:
+  allow_insecure: true
+
