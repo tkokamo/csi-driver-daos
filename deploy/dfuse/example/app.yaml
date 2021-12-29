@@ -1,38 +1,38 @@
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv-dfuseplugin
-  labels:
-      name: pv-dfuseplugin
-spec:
-  capacity:
-    storage: 10Gi # dummy
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  csi:
-    driver: dfuse.csi.k8s.io
-    volumeHandle: unique-volid  # make sure it's a unique id in the cluster
-    volumeAttributes:
-      uid: "0"
-      size: "8G"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-dfuseplugin
-spec:
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 8Gi
-  selector:
-    matchExpressions:
-    - key: name
-      operator: In
-      values: ["pv-dfuseplugin"]
+#---
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: pv-dfuseplugin
+#  labels:
+#      name: pv-dfuseplugin
+#spec:
+#  capacity:
+#    storage: 10Gi # dummy
+#  accessModes:
+#    - ReadWriteMany
+#  persistentVolumeReclaimPolicy: Retain
+#  csi:
+#    driver: dfuse.csi.k8s.io
+#    volumeHandle: unique-volid  # make sure it's a unique id in the cluster
+#    volumeAttributes:
+#      uid: "0"
+#      poolid: "0a099bfa-2839-482b-8b2d-e7a1249211cf"
+#---
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: pvc-dfuseplugin
+#spec:
+#  accessModes:
+#  - ReadWriteMany
+#  resources:
+#    requests:
+#      storage: 8Gi
+#  selector:
+#    matchExpressions:
+#    - key: name
+#      operator: In
+#      values: ["pv-dfuseplugin"]
 ---
 kind: Pod
 apiVersion: v1
@@ -50,3 +50,6 @@ spec:
     - name: dfuse
       csi:
         driver: dfuse.csi.k8s.io
+        volumeAttributes:
+            uid: "0"
+            poolid: "7170ec68-52d5-4f39-98fb-27494cabb47c"
