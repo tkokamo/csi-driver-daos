@@ -6,11 +6,10 @@
 
 The followings show how root user in a Pod accesses to a DAOS server with dfuse (tested on Ubuntu 20.04).
 
-**Node**
+**Note**
 
 * It is assumed that host machine has IP address: 192.168.122.1 and it is accessible from minikube Pods.
-* It is preferred that Host machine has more than 32 GiB memory.
-
+* It is recommended that Host machine has more than 32 GiB memory.
 
 
 ### Build CSI driver
@@ -95,6 +94,16 @@ kubectl -n kube-system get pod
 ```
 
 ### Deploy Pod
+
+Copy the pool UUID above and modify `deploy/dfuse/example/app.yaml`.
+
+```yaml
+# app.yaml
+# ...
+        volumeAttributes:
+            uid: "0"
+            poolid: "7170ec68-52d5-4f39-98fb-27494cabb47c" # Paste your UUID
+```
 
 ```bash
 cd example
